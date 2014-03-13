@@ -1,27 +1,26 @@
-<pre class="prettyprint lang-cpp">#include &lt;stack&gt;
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
+#include <stack>
+#include <iostream>
+#include <vector>
 
 using namespace std;
 
 int main(void)
 {
-	typedef vector&lt;int&gt; int_vector;
-	stack&lt;int, int_vector&gt; s;
+	typedef vector<int> int_vector;
+	stack<int, int_vector> s;
 	
 	int element;
 	
-	while (cin &gt;&gt; element)
+	while (cin >> element)
 	{
 		s.push(element);
 	}
 	
-	cout &lt;&lt; "Contents are:" &lt;&lt; endl;
+	cout << "Contents are:" << endl;
 	for ( ;  !s.empty() ;  s.pop() )
 	{
-		cout &lt;&lt; s.top() &lt;&lt; endl;
+		cout << s.top() << endl;
 	}
 	
 	return 0;
-}</pre>
-<br />
+}
