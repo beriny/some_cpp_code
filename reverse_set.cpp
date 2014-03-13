@@ -1,36 +1,36 @@
-<pre class="prettyprint lang-cpp">/*
+/*
  * 将s中的字符串按照字典顺序，降序排列
  */
 
-#include &lt;iostream&gt;
-#include &lt;set&gt;
-#include &lt;functional&gt;
-#include &lt;string&gt;
+#include <iostream>
+#include <set>
+#include <functional>
+#include <string>
 
 using namespace std;
 
-template &lt;typename T&gt;
-void printCollection(const T&amp; t)
+template <typename T>
+void printCollection(const T& t)
 {
 	typename T::const_iterator itr;
 	for ( itr = t.begin(); itr != t.end(); ++itr)
 	{
-		cout &lt;&lt; *itr &lt;&lt; " ";
+		cout << *itr << " ";
 	}
-	cout &lt;&lt; endl;
+	cout << endl;
 }
 
 int main(void)
 {
-	typedef greater&lt;string&gt; greater_str;
+	typedef greater<string> greater_str;
 	
-	set&lt;string, greater_str&gt; s;
+	set<string, greater_str> s;
 	string str;
 	
 	int i=0;
 	const int Size = 10;
 	
-	while (cin &gt;&gt; str &amp;&amp; i &lt; Size)
+	while (cin >> str && i < Size)
 	{
 		i++;	
 		s.insert(str);
@@ -41,5 +41,3 @@ int main(void)
 	return 0;
 }
 
-</pre>
-<br />
