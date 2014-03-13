@@ -1,10 +1,10 @@
-<pre class="prettyprint lang-cpp">#include &lt;iostream&gt;
+#include <iostream>
 
 using namespace std;
 
-bool isPrime(const unsigned int&amp; n)
+bool isPrime(const unsigned int& n)
 {
-	for (unsigned int i = 3; i*i &lt; n; i += 2)
+	for (unsigned int i = 3; i*i < n; i += 2)
 	{
 		if (n%i == 0)
 		{
@@ -12,4 +12,4 @@ bool isPrime(const unsigned int&amp; n)
 		}
 	}
 	return true;
-}</pre>
+}
