@@ -1,12 +1,14 @@
-Some_Cplusplus_Code
+Some Cplusplus Code
 ===================
 
-Some Cplusplus Code
+  Author :  Jinqiang
 
-Jinqiang
+    Date :  3-13-2014
 
-3-13-2014
+      OS :  ubuntu linux
 
-ubuntu linux
+   Email :  hellojinqiang@gmail.com
 
-hellojinqiang@gmail.com
+Websiete :  www.ligelaige.com
+
+
