@@ -1,34 +1,34 @@
-<pre class="prettyprint lang-cpp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;algorithm&gt;
+#include <iostream>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
 const int ten = 10;
 
-bool compare(const int&amp; a, const int&amp; b)
+bool compare(const int& a, const int& b)
 {
-	return a%ten &gt; b%ten;
+	return a%ten > b%ten;
 }
 
 int main(void)
 {
-	vector&lt;int&gt; num;
+	vector<int> num;
 	int element;
 	
-	while (cin &gt;&gt; element)
+	while (cin >> element)
 	{
 		num.push_back(element);
 	}
 	
 	sort(num.begin(), num.end(), compare);
 	
-	for (unsigned int i = 0; i &lt; num.size(); i += 1)
+	for (unsigned int i = 0; i < num.size(); i += 1)
 	{
-		cout &lt;&lt; num[i] &lt;&lt; " ";
+		cout << num[i] << " ";
 	}
-	cout &lt;&lt; endl;
+	cout << endl;
 	
 	return 0;
-}</pre>
-<br />
+}
+
