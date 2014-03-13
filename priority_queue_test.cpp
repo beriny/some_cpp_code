@@ -1,39 +1,39 @@
-<pre class="prettyprint lang-cpp">/*
+/*
  * priority_queue 是STL中的优先队列
  */
  
-#include &lt;queue&gt;
-#include &lt;iostream&gt;
-#include &lt;string&gt;
-#include &lt;vector&gt;
-#include &lt;functional&gt;
+#include <queue>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <functional>
 
 using namespace std;
 
-template &lt;class T&gt;
-void Output(const string&amp; name, T&amp; t)
+template <class T>
+void Output(const string& name, T& t)
 {
-	cout &lt;&lt; name &lt;&lt; ":" &lt;&lt; endl;
+	cout << name << ":" << endl;
 	while (!t.empty())
 	{
-		cout &lt;&lt; t.top() &lt;&lt; " ";
+		cout << t.top() << " ";
 		t.pop();
 	}
-	cout &lt;&lt; endl;
+	cout << endl;
 }
 
 int main(void)
 {
-	typedef vector&lt;int&gt; vector_int;
-	typedef greater&lt;int&gt; greater_int;
-	typedef less&lt;int&gt; less_int;
+	typedef vector<int> vector_int;
+	typedef greater<int> greater_int;
+	typedef less<int> less_int;
 	
-	priority_queue&lt;int, vector_int,  greater_int&gt; minPQ;
-	priority_queue&lt;int, vector_int, less_int&gt;     maxPQ;
+	priority_queue<int, vector_int,  greater_int> minPQ;
+	priority_queue<int, vector_int, less_int>     maxPQ;
 	
 	int element;
 	
-	while (cin &gt;&gt; element)
+	while (cin >> element)
 	{
 		minPQ.push(element);
 		maxPQ.push(element);
@@ -43,5 +43,5 @@ int main(void)
 	Output("maxPQ", maxPQ);
 	
 	return 0;
-}</pre>
-<br />
+}
+
