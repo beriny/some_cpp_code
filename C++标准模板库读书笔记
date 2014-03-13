@@ -1,0 +1,26 @@
+template 模板
+实例
+
+template <class T>
+inline const T& max(const T& a, const T& b)
+{
+	//if a < b then use b else use a
+	return a < b ? b : a;
+}
+
+//class 可以替换成 typename 建议使用 typename 
+
+template <class T, class container = vector<T> >
+class MyClass;
+
+// > > 没有写成 >> 的原因是怕编译器误解成位移运算子，而导致语法错误。
+
+MyClass<int> x;
+MyClass<int, vector<int> >
+
+关键字 typename 
+template <class T>
+class MyClass {
+	typename T::SubType * ptr;
+	...
+}
