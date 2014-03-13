@@ -1,16 +1,16 @@
-<pre class="prettyprint lang-cpp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;algorithm&gt;
-#include &lt;iterator&gt;
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <iterator>
 
 using namespace std;
 
 int main(void)
 {
-	typedef vector&lt;int&gt; int_vector;
-	typedef istream_iterator&lt;int&gt; istream_itr;
-	typedef ostream_iterator&lt;int&gt; ostream_itr;
-	typedef back_insert_iterator&lt;int_vector&gt; back_ins_itr;
+	typedef vector<int> int_vector;
+	typedef istream_iterator<int> istream_itr;
+	typedef ostream_iterator<int> ostream_itr;
+	typedef back_insert_iterator<int_vector> back_ins_itr;
 	
 	int_vector num;
 	
@@ -19,8 +19,7 @@ int main(void)
 	sort(num.begin(), num.end());
 	copy(num.begin(), num.end(), ostream_itr(cout, " "));
 	
-	cout &lt;&lt; endl;
+	cout << endl;
 	
 	return 0;
 }
-</pre>
