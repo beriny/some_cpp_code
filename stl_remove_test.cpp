@@ -1,5 +1,5 @@
 /*
- * VS 环境
+ * VC 环境
  */
 
 #include <iostream>
