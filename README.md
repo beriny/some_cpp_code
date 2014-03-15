@@ -1,7 +1,7 @@
 Some Cplusplus Code
 ===================
 
-  Author :  Jinqiang
+<pre class="prettyprint lang-cpp">  Author :  Jinqiang
 
     Date :  3-13-2014
 
@@ -9,6 +9,6 @@ Some Cplusplus Code
 
    Email :  hellojinqiang@gmail.com
 
-Websiete :  www.ligelaige.com
+Websiete :  www.ligelaige.com</pre>
 
 
