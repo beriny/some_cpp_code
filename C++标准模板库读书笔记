@@ -73,3 +73,21 @@ void Output(list<T> tlist, string str, T t=T())
 	copy(tlist.begin(), tlist.end(), out);
 	cout << endl;
 }
+
+----------------------
+3-15-2014
+by Jinqiang
+----------------------
+Vectors
+
+vector模型塑造了一个动态数组，它能够将元素置于动态数组中，并加以管理。
+使用vector前，必须引入头文件<vector>
+#include <vector>
+vector是一个定义于namespace std内的template:
+namespace std{
+ template <class T, class Allocator = allocator<T> >
+ class vector;
+}
+
+vector的元素可以是任意数据类型T，但是必须具备assignable（可指定的）和copyable（可拷贝的）两个属性。
+
