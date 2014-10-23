@@ -17,30 +17,28 @@
 using namespace std;
 
 template <class T = int >
-unsigned partition(vector<T>& arr, unsigned low, unsigned high)
+void recursion(vector<T>& arr, unsigned start, unsigned end, unsigned& min, unsigned& max)
 {
-        int pivot = arr[low];
-        while (low < high)
-		{
-                while ( low<high && arr[high]>=pivot ) --high;
-                arr[low] = arr[high];                
-                while ( low<high && arr[low]<=pivot ) ++low;                
-                arr[high] = arr[low];
-        }
-        arr[low] = pivot;
-        return low;
-}
+	if (end < start)
+	{
+		printf("Array Error!");
+		exit(-2);
+	}
 
-template <class T = int >
-void recursion(vector<T>& arr, unsigned start, unsigned end)
-{
-        unsigned mid = 0;
-        if(start < end)
-		{
-                mid = partition(arr, start, end);
-                recursion(arr, start, mid-1);
-                recursion(arr, mid+1, end);
-        }
+	if (end == start)
+	{
+		return;
+	}
+
+	if (end - start == 1)
+	{		
+		arr[start] < arr[min] ? min = start : (arr[end] < arr[min] ? min = end : min);
+		arr[start] > arr[max] ? max = start : (arr[end] > arr[max] ? max = end : max);
+		return;
+	}
+
+        recursion(arr, start, (start+end)/2, min, max);
+        recursion(arr, (start+end+1)/2, end, min, max);
 }
 
 template <class T = int >
@@ -54,29 +52,13 @@ void display(vector<T>& arr, string str = "")
         cout << endl;
 }
 
-template <class T = int >
-void extreme(vector<T>& arr)
-{
-        T min = arr[0];
-        T max = arr[arr.size() - 1];
-        cout << "数组的最小值min：" << min << endl;
-        cout << "数组的最大值max：" << max << endl;
-        cout << "计算第k小的数"<< endl;
-		cout << "请输入k的值（" << 0 << "<=k<=" << (arr.size() - 1) << "）：";
-        unsigned k = 0;
-        cin >> k;
-		if (k >= arr.size()) return;
-
-        cout << "第k小的数，array[" << k << "]: " << arr[k]<< endl;
-}
-
 int main(void)
 {
         unsigned length = 55; 
         cout << "请输入数组长度： ";
         cin >> length;
         
-        int min = 0, max = 100;
+        unsigned min = 0, max = 100;
         vector<int> arr(length);
                 
         srand(unsigned(time(0)));        
@@ -84,9 +66,12 @@ int main(void)
                 arr[i] = min + rand()%(max - min);
                             
         display(arr, "自动生成数组如下： ");
-        recursion(arr, 0, length-1);        
-        extreme(arr);        
-        display(arr, "排序后结果如下： ");
+       
+       	recursion(arr, 0, length-1, min, max);        
+        cout << "数组的最小值min：" << arr[min] << endl;
+        cout << "数组的最大值max：" << arr[max] << endl;
+        
+	display(arr, "检索后数组如下： ");
 
         return 0;
 }
