@@ -27,7 +27,7 @@ T findvalue(unsigned k, vector<T>& a,unsigned start, unsigned end)
     {
         if (flag==0)
         {
-            for (int j=high;j>=low;j--)
+            for (unsigned j=high;j>=low;j--)
             {
                 if (a[j]<x)
                 {
@@ -44,7 +44,7 @@ T findvalue(unsigned k, vector<T>& a,unsigned start, unsigned end)
         } 
         else
         {
-            for (int j=low;j<=high;j++)
+            for (unsigned j=low;j<=high;j++)
             {
                 if (a[j]>x)
                 {

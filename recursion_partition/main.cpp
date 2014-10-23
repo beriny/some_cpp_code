@@ -32,16 +32,70 @@ void display(vector<T>& arr, string str = "")
 
 int main(void)
 {
-        unsigned length = 55; 
+	cout << "数组的序列规则如下：" << endl;
+	cout << "    -1 (降序) " << endl;
+	cout << "     0 (随机) " << endl;
+	cout << "     1 (升序) " << endl;
+	cout << "请输入数值： ";
+        int flag = 0;
+	cin >> flag;	
+
+	unsigned length = 0; 
         cout << "请输入数组长度： ";
         cin >> length;
         
         unsigned min = 0, max = 100;
         vector<int> arr(length);
                 
-        srand(unsigned(time(0)));        
-        for (unsigned i = 0;i < arr.size(); ++i)
-                arr[i] = min + rand()%(max - min);
+        srand(unsigned(time(0))); 
+	
+	if( flag > 0) 
+	{
+                arr[0] = min + rand()%(max - min);
+        	for (unsigned i = 1;i < length; ++i)
+                	arr[i] = arr[i-1] + rand()%(max - min);
+	        display(arr, "自动生成数组如下： ");
+	        cout << "数组的最小值min：" << arr[0] << endl;
+	        cout << "数组的最大值max：" << arr[length-1] << endl;
+	        
+       	
+	        cout << "计算第k小的数"<< endl;
+		cout << "请输入k的值（" << 1 << "<=k<=" << arr.size() << "）：";
+	        unsigned k = 1;
+	       	cin >> k;
+		if (k <= length && k > 0)
+		{
+		        cout << "第" << k << "小的数，array[" << (k-1) << "]: " << arr[k-1] << endl;
+		}
+
+		return 0;
+	} 
+	else if (flag < 0) 
+	{
+                arr[length-1] = min + rand()%(max - min);
+        	for (unsigned i = 1; i < length; ++i)
+                	arr[length-i-1] = arr[length-i] + rand()%(max - min);
+        	display(arr, "自动生成数组如下： ");
+	        cout << "数组的最小值min：" << arr[length-1] << endl;
+	        cout << "数组的最大值max：" << arr[0] << endl;
+        
+       	
+	        cout << "计算第k小的数"<< endl;
+		cout << "请输入k的值（" << 1 << "<=k<=" << arr.size() << "）：";
+	        unsigned k = 1;
+	        cin >> k;
+		if (k <= length && k > 0)
+		{
+		        cout << "第" << k << "小的数，array[" << (k-1) << "]: " << arr[length - k] << endl;
+		}
+
+		return 0;
+	} 
+	else 
+	{
+        	for (unsigned i = 0;i < length; ++i)
+                	arr[i] = min + rand()%(max - min);
+	}
  
         display(arr, "自动生成数组如下： ");
        	extreme(arr, 0, length-1, min, max);        
@@ -50,12 +104,11 @@ int main(void)
         
 	display(arr, "检索后数组如下： ");
        	
-	
         cout << "计算第k小的数"<< endl;
-		cout << "请输入k的值（" << 1 << "<=k<=" << arr.size() << "）：";
+	cout << "请输入k的值（" << 1 << "<=k<=" << arr.size() << "）：";
         unsigned k = 1;
         cin >> k;
-	if (k <= arr.size() && k > 0)
+	if (k <= length && k > 0)
 	{
 	        cout << "第" << k << "小的数，array[" << (k-1) << "]: " << ksmallvalue(k, arr) << endl;
 	}
