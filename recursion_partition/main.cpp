@@ -14,6 +14,7 @@
 #include <ctime>
 #include "recursion_partition.cpp"
 #include "extreme.cpp"
+#include "ksmallvalue.cpp"
 
 using namespace std;
 
@@ -48,7 +49,17 @@ int main(void)
         cout << "数组的最大值max：" << arr[max] << endl;
         
 	display(arr, "检索后数组如下： ");
-        
+       	
+	
+        cout << "计算第k小的数"<< endl;
+		cout << "请输入k的值（" << 1 << "<=k<=" << arr.size() << "）：";
+        unsigned k = 1;
+        cin >> k;
+	if (k <= arr.size() && k > 0)
+	{
+	        cout << "第" << k << "小的数，array[" << (k-1) << "]: " << ksmallvalue(k, arr) << endl;
+	}
+
 	recursion(arr, 0, length-1); 
         display(arr, "排序后结果如下： ");
 
