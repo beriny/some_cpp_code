@@ -70,59 +70,59 @@ void recursion(vector<T>& arr, unsigned start, unsigned end)
 int findValue(int k,int* a,int start,int end)
 {
     
-        int low=start;
-	int high=end;
-	int x=a[start];
-	int flag=0;
-	while (low!=high)
-	{
-		if (flag==0)
-		{
-			for (int j=high;j>=low;j--)
-			{
-				if (a[j]<x)
-				{
-		              		a[low]=a[j];
-					high=j;
-					flag=1;
-					break;
-				} 	
-				else
-				{
-																								                        if(j==low) high=low;
-																															                }
-																																	            }
-																																		            } 
-																																			            else
-																																				            {
-																																					                for (int j=low;j<=high;j++)
-																																							            {
-																																								                    if (a[j]>x)
-																																										                    {
-																																												                        a[high]=a[j];
-																																															                    low=j;
-																																																	                        flag=0;
-																																																				                    break;
-																																																						                    } 
-																																																								                    else
-																																																										                    {
-																																																												                        if(j==high) low=high;
-																																																															                }
-																																																																	            }
-																																																																		            }
-																																																																			        }
-																																																																				    a[low]=x;
-																																																																				        if ((low-start+1)==k)
-																																																																					    {
-																																																																					            return a[low];
-																																																																						        }
-																																																																							    else if ((low-start+1)>k)
-																																																																							        {
-																																																																								        return findValue(k,a,start,low-1);
-																																																																									    }
-																																																																									        else
-																																																																										    {
-																																																																										            return findValue(k-(low-start)-1,a,low+1,end);
-																																																																											        }
-																																																																												    
-																																																																												    }
+    int low=start;
+    int high=end;
+    int x=a[start];
+    int flag=0;
+    while (low!=high)
+    {
+        if (flag==0)
+        {
+            for (int j=high;j>=low;j--)
+            {
+                if (a[j]<x)
+                {
+                    a[low]=a[j];
+                    high=j;
+                    flag=1;
+                    break;
+                } 
+                else
+                {
+                    if(j==low) high=low;
+                }
+            }
+        } 
+        else
+        {
+            for (int j=low;j<=high;j++)
+            {
+                if (a[j]>x)
+                {
+                    a[high]=a[j];
+                    low=j;
+                    flag=0;
+                    break;
+                } 
+                else
+                {
+                    if(j==high) low=high;
+                }
+            }
+        }
+    }
+    a[low]=x;
+    if ((low-start+1)==k)
+    {
+        return a[low];
+    }
+    else if ((low-start+1)>k)
+    {
+        return findValue(k,a,start,low-1);
+    }
+    else
+    {
+        return findValue(k-(low-start)-1,a,low+1,end);
+    }
+    
+}
