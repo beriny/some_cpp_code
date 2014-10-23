@@ -1,0 +1,93 @@
+template 模板
+实例
+
+template <class T>
+inline const T& max(const T& a, const T& b)
+{
+	//if a < b then use b else use a
+	return a < b ? b : a;
+}
+
+//class 可以替换成 typename 建议使用 typename 
+
+template <class T, class container = vector<T> >
+class MyClass;
+
+// > > 没有写成 >> 的原因是怕编译器误解成位移运算子，而导致语法错误。
+
+MyClass<int> x;
+MyClass<int, vector<int> >
+
+关键字 typename 
+template <class T>
+class MyClass {
+	typename T::SubType * ptr;
+	...
+}
+
+
+class isPrime{
+public:
+	bool operator() (int num) const{
+		if (num < 2)
+		{
+			return false;
+		}
+		
+		if (num == 2)
+		{
+			return true;
+		}
+		
+		if (num % 2 == 0)
+		{
+			return false;
+		}
+		
+		for (unsigned int i = 3; i*i < num+1; i += 2)
+		{
+			if (num % i == 0)
+			{
+				return false;
+			}
+		}
+		
+		return true;
+	}
+};
+
+template<typename T>
+void Output(list<T> tlist, string str, T t=T())
+{
+	ostream_iterator<T> out(cout, " ");
+	T _t = T();
+	if (t != _t)
+	{
+		cout << str << t << " : " << endl;
+	}
+	else
+	{
+		cout << str << endl;
+	}
+	
+	copy(tlist.begin(), tlist.end(), out);
+	cout << endl;
+}
+
+----------------------
+3-15-2014
+by Jinqiang
+----------------------
+Vectors
+
+vector模型塑造了一个动态数组，它能够将元素置于动态数组中，并加以管理。
+使用vector前，必须引入头文件<vector>
+#include <vector>
+vector是一个定义于namespace std内的template:
+namespace std{
+ template <class T, class Allocator = allocator<T> >
+ class vector;
+}
+
+vector的元素可以是任意数据类型T，但是必须具备assignable（可指定的）和copyable（可拷贝的）两个属性。
+
