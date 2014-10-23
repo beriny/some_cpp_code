@@ -67,12 +67,13 @@ void recursion(vector<T>& arr, unsigned start, unsigned end)
         }
 }
 
-int findValue(int k,int* a,int start,int end)
+template <class T = int >
+T findValue(int k, vector<T>& a,unsigned start, unsigned end)
 {
     
-    int low=start;
-    int high=end;
-    int x=a[start];
+    unsigned low=start;
+    unsigned high=end;
+    T x=a[start];
     int flag=0;
     while (low!=high)
     {
