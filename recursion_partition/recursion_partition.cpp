@@ -30,31 +30,34 @@ unsigned partition(vector<T>& arr, unsigned low, unsigned high)
         return low;
 }
 
+
 template <class T = int >
-void recursion(vector<T>& arr, unsigned start, unsigned end)
+void recursion(vector<T>& arr, unsigned low, unsigned high)
 {
         unsigned mid = 0;
-        if(start < end)
+        if(low < high)
 	{
-                mid = partition(arr, start, end);
-                recursion(arr, start, mid-1);
-                recursion(arr, mid+1, end);
+                mid = partition(arr, low, high);
+                recursion(arr, low, mid-1);
+                recursion(arr, mid+1, high);
         }
 }
 
 template <class T = int >
-void extreme_display(vector<T>& arr)
+int recursion_k(vector<T>& arr, unsigned low, unsigned high, unsigned k)
 {
-        T min = arr[0];
-        T max = arr[arr.size() - 1];
-        cout << "数组的最小值min：" << min << endl;
-        cout << "数组的最大值max：" << max << endl;
-        cout << "计算第k小的数"<< endl;
-		cout << "请输入k的值（" << 0 << "<=k<=" << (arr.size() - 1) << "）：";
-        unsigned k = 0;
-        cin >> k;
-		if (k >= arr.size()) return;
-
-        cout << "第k小的数，array[" << k << "]: " << arr[k]<< endl;
+        unsigned mid = 0;
+        
+        if(low < high)
+        {
+                if(k == mid)
+                        return arr[mid];
+                else if(k < mid)
+                        return recursion_k(arr, low, mid-1, k);
+                else 
+                        return recursion_k(arr, mid+1, high, k);
+        }
+        return arr[mid];
 }
+
 
