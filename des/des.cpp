@@ -1,10 +1,5 @@
-
-//#include <stdlib.h>
-//#include <string.h>
 #include <memory.h>
 #include "des.h"
-
-//////////////////////////////////////////////////////////////////////////
 
 static void F_func(bool In[32], const bool Ki[48]);// f 函数
 static void S_func(bool Out[32], const bool In[48]);// S 盒代替
@@ -13,8 +8,6 @@ static void Xor(bool *InA, const bool *InB, int len);// 异或
 static void RotateL(bool *In, int len, int loop);// 循环左移
 static void ByteToBit(bool *Out, const char *In, int bits);// 字节组转换成位组
 static void BitToByte(char *Out, const bool *In, int bits);// 位组转换成字节组
-
-//////////////////////////////////////////////////////////////////////////
 
 // initial permutation IP
 const static char IP_Table[64] = {
@@ -104,15 +97,10 @@ const static char S_Box[8][4][16] = {
      2,  1, 14,  7,  4, 10,  8, 13, 15, 12,  9,  0,  3,  5,  6, 11
 };
 
-//////////////////////////////////////////////////////////////////////////
-
 static bool SubKey[16][48];// 16圈子密钥
 
-//////////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////////
-// Code starts from Line 121
-//////////////////////////////////////////////////////////////////////////
+// Code starts 
 void Des_Run(char Out[8], char In[8], bool Type)
 {
     static bool M[64], Tmp[32], *Li = &M[0], *Ri = &M[32];
@@ -193,6 +181,4 @@ void BitToByte(char *Out, const bool *In, int bits)
     for(int i=0; i<bits; i++)
         Out[i/8] |= In[i]<<(i%8);
 }
-//////////////////////////////////////////////////////////////////////////
-// Code ends at Line 200
-//////////////////////////////////////////////////////////////////////////
+// Code end

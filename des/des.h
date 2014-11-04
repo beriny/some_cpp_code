@@ -1,15 +1,11 @@
 #ifndef _DES_H_
 #define _DES_H_
 
-enum	{ENCRYPT,DECRYPT};
+enum { ENCRYPT, DECRYPT };
 
-//////////////////////////////////////////////////////////////////////////
-
-// 加/解密 Type—ENCRYPT:加密,DECRYPT:解密
-void Des_Run(char Out[8], char In[8], bool Type=ENCRYPT);
-// 设置密钥
+// 鍔犲瘑/瑙ｅ瘑 Type=ENCRYPT:鍔犲瘑,DECRYPT:瑙ｅ瘑
+void Des_Run(char Out[8], char In[8], bool Type = ENCRYPT);
+// 璁剧疆瀵嗛挜
 void Des_SetKey(const char Key[8]);
-
-//////////////////////////////////////////////////////////////////////////
 
 #endif

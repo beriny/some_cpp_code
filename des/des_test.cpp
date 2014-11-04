@@ -1,4 +1,13 @@
-// des test
+/*************************************************************************
+	>    File Name: des_test.cpp
+	>       Author: huangjinqiang
+	>        Email: ligelaige@gmail.com
+	> Created Time: Tue 04 Nov 2014 11:27:19 PM CST
+ ************************************************************************/
+
+#include <iostream>
+using namespace std;
+
 #include <stdio.h>
 #include "des.h"
 
@@ -18,4 +27,6 @@ int main(void)
 	puts("After decrypting");
 	Des_Run(str, str, DECRYPT);
 	puts(str);
+
+	return 0;
 }
