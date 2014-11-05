@@ -16,7 +16,7 @@
 using namespace std;
 
 template <class T = int >
-unsigned partition(vector<T>& arr, unsigned low, unsigned high)
+int partition(vector<T>& arr, int low, int high)
 {
         int pivot = arr[low];
         while (low < high)
@@ -32,9 +32,9 @@ unsigned partition(vector<T>& arr, unsigned low, unsigned high)
 
 
 template <class T = int >
-void recursion(vector<T>& arr, unsigned low, unsigned high)
+void recursion(vector<T>& arr, int low, int high)
 {
-        unsigned mid = 0;
+        int mid = 0;
         if(low < high)
 		{
                 mid = partition(arr, low, high);
@@ -44,9 +44,9 @@ void recursion(vector<T>& arr, unsigned low, unsigned high)
 }
 
 template <class T = int >
-int recursion_k(vector<T>& arr, unsigned low, unsigned high, unsigned k)
+int recursion_k(vector<T>& arr, int low, int high, int k)
 {
-        unsigned mid = 0;
+        int mid = 0;
         
         if(low < high)
         {

@@ -31,8 +31,8 @@ void display(vector<T>& arr, string str = "")
 int main(void)
 {
         int flag = 0;
-	int length = 0, k = 1;
-        int min = 0, max = 100;
+	unsigned length = 0, k = 1;
+        unsigned min = 0, max = 100;
                 
 	cout << "数组的序列规则如下：" << endl;
 	cout << "    -1 (降序) " << endl;
@@ -45,12 +45,12 @@ int main(void)
         cin >> length;
         vector<int> arr(length);
                 
-        srand(int(time(0))); 
+        srand(unsigned(time(0))); 
 	
 	if( flag > 0) 
 	{
                 arr[0] = min + rand()%(max - min);
-        	for (int i = 1; i<length; ++i)
+        	for (unsigned i = 1; i<length; ++i)
                 	arr[i] = arr[i-1] + rand()%(max - min);
                 
 	        display(arr, "自动生成数组如下： ");
@@ -69,7 +69,7 @@ int main(void)
 	else if (flag < 0) 
 	{
                 arr[length-1] = min + rand()%(max - min);
-        	for (int i = 1; i<length; ++i)
+        	for (unsigned i = 1; i<length; ++i)
                 	arr[length-i-1] = arr[length-i] + rand()%(max - min);
                 	
         	display(arr, "自动生成数组如下： ");
@@ -87,10 +87,13 @@ int main(void)
 	} 
 	else 
 	{
-                for (int i = 0; i<length; ++i)
+	        vector<int> arrbk(length);
+                for (unsigned i = 0; i<length; ++i)
                 {
                         arr[i] = min + rand()%(max - min);
-                }                
+                        arrbk[i] = arr[i];
+                }
+                
 
                 display(arr, "自动生成数组如下： ");
                 extreme(arr, 0, length-1, min, max);        
@@ -104,10 +107,10 @@ int main(void)
                 cin >> k;                
                 if (k <= length)
                 {                       
-                        cout << "第" << k << "小的数，array[" << (k-1) << "]: " << recursion_k(arr, 0, length-1, k-1) << endl; 
+                        cout << "第" << k << "小的数，array[" << (k-1) << "]: " << recursion_k(arrbk, 0, length-1, k-1) << endl; 
                 }
                                 
-                recursion(arr, 0, length-1);
+                //recursion(arr, 0, arr.size()-1);
                 
                 display(arr, "排序后结果如下： ");
         }

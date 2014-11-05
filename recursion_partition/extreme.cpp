@@ -16,7 +16,7 @@
 using namespace std;
 
 template <class T = int >
-void extreme(vector<T>& arr, unsigned start, unsigned end, unsigned& min, unsigned& max)
+void extreme(vector<T>& arr, int start, int end, int& min, int& max)
 {
 	if (end < start)
 	{

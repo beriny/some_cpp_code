@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include <time.h>
 
-unsigned partition(int* arr, unsigned low, unsigned high) 
+int partition(int* arr, int low, int high) 
 {
         int pivot = arr[low];
         while(low<high) {
@@ -24,9 +24,9 @@ unsigned partition(int* arr, unsigned low, unsigned high)
         return low;
 }
 
-void recursion(int* arr, unsigned start, unsigned end) 
+void recursion(int* arr, int start, int end) 
 {
-        unsigned mid = 0;
+        int mid = 0;
         if(start < end) 
 	{
                 mid = partition(arr, start, end);
@@ -35,9 +35,9 @@ void recursion(int* arr, unsigned start, unsigned end)
         }
 }
 
-int recursion_k(int *arr, unsigned low, unsigned high, unsigned k)
+int recursion_k(int *arr, int low, int high, int k)
 {
-        unsigned mid = 0;
+        int mid = 0;
         if(low < high)
         {
                 mid = partition(arr, low, high);
@@ -52,17 +52,17 @@ int recursion_k(int *arr, unsigned low, unsigned high, unsigned k)
         return arr[mid];
 }
 
-void display(int* arr, unsigned length, char* str) 
+void display(int* arr, int length, char* str) 
 {
 		printf("%s\n", str);  
-        for (unsigned i = 0; i < length; ++i)
+        for (int i = 0; i < length; ++i)
 		{
 				printf("%d ", arr[i]);
         }
         printf("\n");
 }
 
-void extreme(int* arr, unsigned start, unsigned end, unsigned* min, unsigned* max)
+void extreme(int* arr, int start, int end, int* min, int* max)
 {
 	if (end < start)
 	{
@@ -89,7 +89,7 @@ void extreme(int* arr, unsigned start, unsigned end, unsigned* min, unsigned* ma
 int main(void)
 {
         int flag = 0;
-        unsigned length = 0, k = 1;
+        int length = 0, k = 1;
         int min = 0, max = 100;        
                 
         printf ("数组的序列规则如下：\n");
@@ -111,12 +111,12 @@ int main(void)
 		exit(-1);			
 	}
                 
-        srand((unsigned)time(0));  
+        srand((int)time(0));  
                 
         if( flag > 0) 
 	{
                 arr[0] = min + rand()%(max - min);
-                for (unsigned i = 1; i<length; ++i)
+                for (int i = 1; i<length; ++i)
                         arr[i] = arr[i-1] + rand()%(max - min);
                         
 	        display(arr, length, "自动生成数组如下： ");	        
@@ -136,7 +136,7 @@ int main(void)
 	{
                 
 		arr[length-1] = min + rand()%(max - min);
-                for (unsigned i = 1; i<length; ++i)
+                for (int i = 1; i<length; ++i)
                         arr[length-i-1] = arr[length-i] + rand()%(max - min);
                         
                 display(arr, length, "自动生成数组如下： ");
@@ -154,7 +154,7 @@ int main(void)
 	} 
 	else
 	{	                      
-                for (unsigned i = 0; i<length; ++i) 
+                for (int i = 0; i<length; ++i) 
                 {
                         arr[i] = min + rand()%(max - min);
                         arrtmp[i] = arr[i];
