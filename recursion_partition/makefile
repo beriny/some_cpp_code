@@ -1,14 +1,14 @@
 main: main.o recursion_partition.o extreme.o
-	g++ -o main main.o recursion_partition.o extreme.o -std=c++11
+	g++ -std=c++0x  -o main main.o recursion_partition.o extreme.o
 
 main.o: main.cpp
-	g++ -c main.cpp -std=c++11
+	g++ -std=c++0x -c main.cpp 
 
 recursion_partition.o: recursion_partition.cpp
-	g++ -c recursion_partition.cpp -std=c++11
+	g++ -std=c++0x -c recursion_partition.cpp
 
 extreme.o: extreme.cpp
-	g++ -c extreme.cpp -std=c++11
+	g++ -std=c++0x -c extreme.cpp
 
 run:
 	./main
