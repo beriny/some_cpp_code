@@ -36,7 +36,7 @@ void recursion(vector<T>& arr, unsigned low, unsigned high)
 {
         unsigned mid = 0;
         if(low < high)
-	{
+		{
                 mid = partition(arr, low, high);
                 recursion(arr, low, mid-1);
                 recursion(arr, mid+1, high);
