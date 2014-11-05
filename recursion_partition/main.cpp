@@ -110,7 +110,7 @@ int main(void)
                         cout << "第" << k << "小的数，array[" << (k-1) << "]: " << recursion_k(arrbk, 0, length-1, k-1) << endl; 
                 }
                                 
-                recursion(arr, 0, arr.size()-1);
+                //recursion(arr, 0, arr.size()-1);
                 
                 display(arr, "排序后结果如下： ");
         }
