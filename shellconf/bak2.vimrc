@@ -160,8 +160,6 @@ set autoread
 autocmd FileType c,cpp map <buffer> <leader><space> :w<cr>:make<cr>
 "代码补全 
 set completeopt=preview,menu 
-"允许插件  
-filetype plugin on
 "共享剪贴板  
 set clipboard+=unnamed 
 "从不备份  
