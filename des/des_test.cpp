@@ -6,7 +6,6 @@
  ************************************************************************/
 
 #include <stdio.h>
-#include <string.h>
 #include "des.h"
 
 #define SIZE 128

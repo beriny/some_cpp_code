@@ -100,7 +100,7 @@ const static char S_Box[8][4][16] = {
 static bool SubKey[16][48];// 16»¶◊”√‹‘ø
 
 
-// Code starts 
+// Code start 
 void Des_Run(char Out[8], char In[8], bool Type)
 {
     static bool M[64], Tmp[32], *Li = &M[0], *Ri = &M[32];
