@@ -29,6 +29,7 @@ auto split(const string &s, const char delim = ' ')
 int main(void)
 {
 	string a, b;
+	cout << "Please Enter the Absolute Path of the File!" << endl; 
 	cout << "a = ";
 	cin >> a;
 	cout << "b = ";
