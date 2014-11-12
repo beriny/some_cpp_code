@@ -34,18 +34,22 @@ auto split(const string &s, const char delim = ' ')
 	return  elems;
 }
 
-void readfile(const string &file)
+auto readfile(const string &file)
 {
 	ifstream infile(file);
 
 	string line;
+	vector<record> vars;
 
-	while (infile != NULL)
+	while (getline(infile, line) != NULL)
 	{
-		getline(infile, line);
 		auto var = split(line, ':');
-		cout << var[0] << " " << var[2] << endl;
+		//cout << var[0] << " " << var[2] << endl;
+
+		vars.push_back(record{var[0], stoi(var[2])});
 	}
+
+	return vars;
 }
 
 auto find_id(const vector<record> &people, const string &name)
@@ -70,8 +74,12 @@ int main(void)
 	cout << find_id(emplyee, "bill") << endl;
 	cout << find_id(emplyee, "john") << endl;
 
-	readfile(filepath);
+	decltype(emplyee) users = readfile(filepath);
 
-	cout << filepath << endl;
+	cout << "mysql uid = " << find_id(users, "mysql") << endl;
+	cout << "johnny uid = " << find_id(users, "johnny") << endl;
+	cout << "bill uid = " << find_id(users, "bill") << endl;
+	cout << "john uid = " << find_id(users, "john") << endl;
+
 	return 0;
 }
