@@ -35,8 +35,8 @@ int main(void)
 	cin >> b;
 
 	auto diffpath = [](const string &a, const string &b) {
-		int i = 0, k = 0;
-		for (; i< a.length() && i<b.length() && a[i] == b[i]; ++i)
+		int k = 0;
+		for (int i=0; i< a.length() && i<b.length() && a[i] == b[i]; ++i)
 			if (a[i] == '/') k=i;
 		return k+1;
 	};
