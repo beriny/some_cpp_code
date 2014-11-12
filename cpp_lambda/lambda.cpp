@@ -11,6 +11,7 @@
 #include <algorithm>
 #include <fstream>
 #include <sstream>
+#include <iterator>
 
 using namespace std;
 
@@ -71,8 +72,8 @@ int main(void)
 			{"bill", 3}
 	};
 
-	cout << find_id(emplyee, "bill") << endl;
-	cout << find_id(emplyee, "john") << endl;
+	cout << "bill id = " << find_id(emplyee, "bill") << endl;
+	cout << "john id = " << find_id(emplyee, "john") << endl;
 
 	decltype(emplyee) users = readfile(filepath);
 
@@ -80,6 +81,31 @@ int main(void)
 	cout << "johnny uid = " << find_id(users, "johnny") << endl;
 	cout << "bill uid = " << find_id(users, "bill") << endl;
 	cout << "john uid = " << find_id(users, "john") << endl;
+
+	auto dir = split(filepath, '/');
+
+//	copy(dir.begin(), dir.end(), ostream_iterator<string>(cout, "\n"));
+
+	auto diffpath = [](const string &a, const string &b) {
+		int i = 0;
+		for (; i< a.length() && i<b.length() && a[i] == b[i]; ++i);
+		return i;
+	};
+
+	string a, b;
+	cout << "a = ";
+	cin >> a;
+	cout << "b = ";
+	cin >> b;
+
+	int index = diffpath(a, b);
+
+	cout << "diff path:" << index << endl;
+	cout << "a sub:" << a.substr(0, index) << endl;
+	cout << "b sub:" << b.substr(0, index) << endl;
+
+	a = a.substr(index);
+	b = b.substr(index);
 
 	return 0;
 }
