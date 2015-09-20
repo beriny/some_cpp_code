@@ -28,8 +28,8 @@ Windows PowerShell的配置文件
 
 Viusal Studio Powershell 环境
 
-	你需要安装 [PSCX](https://pscx.codeplex.com/releases) ，然后根据你的VS的版本输入如下
-	#Import-VisualStudioVars -VisualStudioVersion 2013 
+	你需要安装 [PSCX](https://pscx.codeplex.com/releases, "PSCX") ，然后根据你的VS的版本输入如下
+	Import-VisualStudioVars -VisualStudioVersion 2013 
 
 Terminator
 ----------
