@@ -143,12 +143,15 @@ int main (int argc, char *argv[])
 		
 	while(num != 0)
 	{
-		getchar();
+	        system("clear");
+
+		//getchar();
 		fflush(stdin);
 		num = CellFunc(cell, RowLength, ColLength, celltemp);	
 		
 		printf("the num of cell: %d\n", num);
-		OutCell(cell, RowLength, ColLength);			
+		OutCell(cell, RowLength, ColLength);
+	        sleep(1);		
 	}
 		
 	return 0;

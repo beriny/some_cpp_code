@@ -5,12 +5,18 @@ func! SaveInputData()
 	exec "w! /tmp/input_data"
 endfunc
 
+
+
+
 "colorscheme torte
 "colorscheme murphy
 "colorscheme desert 
 "colorscheme desert 
 "colorscheme elflord
 colorscheme ron
+
+
+
 
 "set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
 "set termencoding=utf-8
@@ -27,7 +33,7 @@ colorscheme ron
 set go=             " 不要图形按钮  
 "color asmanian2     " 设置背景主题  
 "set guifont=Courier_New:h10:cANSI   " 设置字体  
-syntax enable           " 语法高亮  
+"syntax on           " 语法高亮  
 autocmd InsertLeave * se nocul  " 用浅色高亮当前行  
 autocmd InsertEnter * se cul    " 用浅色高亮当前行  
 "set ruler           " 显示标尺  
@@ -38,9 +44,10 @@ set showcmd         " 输入的命令显示出来，看的清楚些
 set novisualbell    " 不要闪烁(不明白)  
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}   "状态行显示的内容  
 set laststatus=1    " 启动显示状态行(1),总是显示状态行(2)  
-set nofoldenable      " 启动Vim时不允许折叠  
-set foldmethod=indent   " 缩进折叠  
+set foldenable      " 允许折叠  
+set foldmethod=manual   " 手动折叠  
 "set background=dark "背景使用黑色 
+set nocompatible  "去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限  
 " 显示中文帮助
 if version >= 603
 	set helplang=cn
@@ -56,34 +63,34 @@ endif
 """""新文件标题
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "新建.c,.h,.sh,.java文件，自动插入文件头 
-autocmd BufNewFile *.cpp,*.[ch],*.sh,*.py,*.java exec ":call SetTitle()" 
+autocmd BufNewFile *.[ch]pp,*.cc,*.[ch],*.sh,*.py,*.java exec ":call SetTitle()" 
 ""定义函数SetTitle，自动插入文件头 
 func SetTitle() 
 	"如果文件类型为.sh文件 
 	if &filetype == 'sh' 
 		call setline(1,"\#!/bin/bash") 
 		call append(line("."),   "\#    File Name: ".expand("%")) 
-		call append(line(".")+1, "\#       Author: huangjinqiang") 
+		call append(line(".")+1, "\#       Author: Johnny") 
 		call append(line(".")+2, "\#        Email: ligelaige@gmail.com") 
 		call append(line(".")+3, "\# Created Time: ".strftime("%c")) 
 		call append(line(".")+4, "") 
 	elseif &filetype == 'python' 
-		call setline(1,"\#!/bin/python") 
+		call setline(1,"\#!/usr/bin/env python") 
 		call append(line("."),   "\#    -*-coding: utf-8-*-     ") 
 		call append(line(".")+1, "\#    File Name: ".expand("%")) 
-		call append(line(".")+2, "\#       Author: huangjinqiang") 
+		call append(line(".")+2, "\#       Author: Johnny") 
 		call append(line(".")+3, "\#        Email: ligelaige@gmail.com") 
 		call append(line(".")+4, "\# Created Time: ".strftime("%c")) 
 		call append(line(".")+5, "") 
 	else
 		call setline(1, "/*************************************************************************") 
-		call append(line("."), "	>    File Name: ".expand("%")) 
-		call append(line(".")+1, "	>       Author: huangjinqiang") 
-		call append(line(".")+2, "	>        Email: ligelaige@gmail.com") 
-		call append(line(".")+3, "	> Created Time: ".strftime("%c")) 
+		call append(line("."),   " *	    File Name: ".expand("%")) 
+		call append(line(".")+1, " *	       Author: Johnny") 
+		call append(line(".")+2, " *	        Email: ligelaige@gmail.com") 
+		call append(line(".")+3, " *	 Created Time: ".strftime("%c")) 
 		call append(line(".")+4, " ************************************************************************/") 
 		call append(line(".")+5, "")
-		if &filetype == 'cpp'
+		if &filetype == 'cpp' || &filetype == 'cc' || &filetype == 'hpp'
 			call append(line(".")+6, "#include <iostream>")
 			call append(line(".")+7, "using namespace std;")
 			call append(line(".")+8, "")
@@ -126,7 +133,7 @@ map <F5> :call CompileRunGcc()<CR>
 func! CompileRunGcc()
 	exec "w"
 	if &filetype == 'c'
-		exec "!gcc % -o %<"
+		exec "!g++ % -o %<"
 		exec "! ./%<"
 	elseif &filetype == 'cpp'
 		exec "!g++ % -o %<"
@@ -160,6 +167,8 @@ set autoread
 autocmd FileType c,cpp map <buffer> <leader><space> :w<cr>:make<cr>
 "代码补全 
 set completeopt=preview,menu 
+"允许插件  
+filetype plugin on
 "共享剪贴板  
 set clipboard+=unnamed 
 "从不备份  
@@ -170,7 +179,6 @@ set nobackup
 set autowrite
 set ruler                   " 打开状态栏标尺
 set cursorline              " 突出显示当前行
-set cursorcolumn            " 突出显示当前列
 set magic                   " 设置魔术
 set guioptions-=T           " 隐藏工具栏
 set guioptions-=m           " 隐藏菜单栏
@@ -272,7 +280,6 @@ au BufRead,BufNewFile *  setfiletype txt
 :inoremap ] <c-r>=ClosePair(']')<CR>
 :inoremap " ""<ESC>i
 :inoremap ' ''<ESC>i
-:inoremap ` ``<ESC>i
 function! ClosePair(char)
 	if getline('.')[col('.') - 1] == a:char
 		return "\<Right>"
