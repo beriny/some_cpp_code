@@ -1,0 +1,25 @@
+#!/bin/bash
+#    File Name: rmtmp.sh
+#       Author: Johnny
+#        Email: ligelaige@gmail.com
+# Created Time: Sat 26 Sep 2015 12:33:30 PM CST
+
+items=$(ls /tmp)
+backs=""
+
+if [ $# -gt 0 ]
+then
+	for i in $@
+	do
+		backs="${backs} $(ls $items | grep $i)"
+		items=$(ls $items | grep -v $i)
+	done
+fi
+
+echo "follow will be rm:"
+echo $items
+echo
+echo "backs:"
+echo $backs
+
+sudo rm $items -rf
