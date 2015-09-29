@@ -4,14 +4,18 @@ _ret=$(whoami)
 _RET=$_ret
 ret=${_RET:0:1}${_ret:1}
 
+
 local ret_status="%(?:%{$fg_bold[green]%}${ret} :%{$fg_bold[red]%}${ret} %s)"
 PROMPT='${ret_status}%{$fg_bold[green]%}%p %{$fg[cyan]%}%c %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%} % %{$reset_color%}'
-RPROMPT='[%*]'
+#if [ $# -eq 0 ]; then RPROMPT='[%*]'; else RPROMPT=''; fi
 
 ZSH_THEME_GIT_PROMPT_PREFIX="git:(%{$fg[red]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}) %{$fg[yellow]%}✗%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
+
+#RPROMPT='[%*]'
+RPROMPT="[ %{$fg_bold[cyan]%}%* %{$reset_color%}]%s"
 
 # LS colors, made with http://geoff.greer.fm/lscolors/
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
