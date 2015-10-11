@@ -10,13 +10,13 @@ Import-Module PSReadline
 
 Set-PSReadLineOption -HistorySearchCursorMovesToEnd 
 
-Set-PSReadlineKeyHandler -Key Tab -Function Complete
+# Set-PSReadlineKeyHandler -Key Tab -Function Complete
 Set-PSReadlineKeyHandler -Key UpArrow -Function HistorySearchBackward
 Set-PSReadlineKeyHandler -Key DownArrow -Function HistorySearchForward
 
 
-#Import-VisualStudioVars -VisualStudioVersion 2013
-Import-VisualStudioVars -VisualStudioVersion 2010
+#Import-VisualStudioVars -VisualStudioVersion 2013 -Architecture x86
+Import-VisualStudioVars -VisualStudioVersion 2010 -Architecture x86
 
 
 Set-Alias vi  "C:\Program Files (x86)\Git\share\vim\vim74\vim.exe"
@@ -53,9 +53,9 @@ function writegitprompt($status){
              write-host "$([char]0x25CF)$([char]0x25CF)$([char]0x25CF)" -nonewline -ForegroundColor DarkGray
          }
          if($status.HasIndex) {
-             write-host "|" -nonewline
+             write-host "| " -nonewline
              write-host "$([char]0x25CF)" -nonewline -ForegroundColor @{$true='Green';$false='DarkGray'}[$status.Index.Added -and $status.Index.Added.Count -ge 0]
-             write-host "$([char]0x25CF)" -nonewline -ForegroundColor @{$true=(@{$true='Red';$false='Yellow'}[$status.Index.Unmerged -and $status.Index.Unmerged.Count -ge 0]);false=(@{$true='Red';$false='DarkGray'}[$status.Working.Unmerged -and $status.Working.Unmerged.Count -ge 0])}[$status.Index.Modified -and $status.Index.Modified.Count -ge 0]
+             write-host "$([char]0x25CF)" -nonewline -ForegroundColor @{$true=(@{$true='Red';$false='Yellow'}[$status.Index.Unmerged -and $status.Index.Unmerged.Count -ge 0]);$false=(@{$true='Red';$false='DarkGray'}[$status.Working.Unmerged -and $status.Working.Unmerged.Count -ge 0])}[$status.Index.Modified -and $status.Index.Modified.Count -ge 0]
              write-host "$([char]0x25CF)" -nonewline -ForegroundColor @{$true='Red';$false='DarkGray'}[$status.Index.Deleted -and $status.Index.Deleted.Count -ge 0]
          }
          write-host ')' -nonewline 
@@ -106,3 +106,4 @@ function global:prompt {
 }
 
 ## Johnny ω C:\Users\Johnny\Desktop[09:17] λ  set end
+
