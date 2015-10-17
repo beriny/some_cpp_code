@@ -18,6 +18,9 @@ Import-VisualStudioVars -VisualStudioVersion 2010 -Architecture x86
 Set-Alias vi  "C:\Program Files (x86)\Git\share\vim\vim74\vim.exe"
 Set-Alias vim "C:\Program Files (x86)\Git\share\vim\vim74\vim.exe"
 
+$desktop = "$HOME/Desktop"
+$download = "$HOME/Download"
+
 $myprofile = "$HOME\Documents\WindowsPowerShell\profile.ps1"
 
 # PowerShell Prompt Set Begin
@@ -38,7 +41,7 @@ $IsAdmin = $prp.IsInRole($adm)
 function writegitprompt($status){
     if ($status) {
          write-host ' (' -nonewline 
-         write-host ($status.Branch) -nonewline
+         write-host ($status.Branch) -nonewline -foregroundcolor Cyan
          write-host ' ' -nonewline 
          if($status.HasWorking) {
              write-host "$([char]0x25CF)" -nonewline -ForegroundColor @{$true='Green';$false='DarkGray'}[$status.Working.Added -and $status.Working.Added.Count -ge 0]
