@@ -2,7 +2,11 @@
 # %UserProfile%\My Documents\WindowsPowerShell\profile.ps1 
 # This profile applies only to the current user, but affects all shells. 
 
+
 Import-Module PSReadline
+
+# Load posh-git module from current directory
+Import-Module posh-git
 
 Set-PSReadLineOption -HistorySearchCursorMovesToEnd 
 
@@ -15,17 +19,15 @@ Set-PSReadlineKeyHandler -Key DownArrow -Function HistorySearchForward
 Import-VisualStudioVars -VisualStudioVersion 2010 -Architecture x86
 
 
-Set-Alias vi  "C:\Program Files (x86)\Git\share\vim\vim74\vim.exe"
-Set-Alias vim "C:\Program Files (x86)\Git\share\vim\vim74\vim.exe"
+Set-Alias vi  "C:\Program Files\Git\usr\bin\vim.exe"
+Set-Alias vim "C:\Program Files\Git\usr\bin\vim.exe"
 
 $desktop = "$HOME/Desktop"
-$download = "$HOME/Download"
+$download = "$HOME/Downloads"
 
 $myprofile = "$HOME\Documents\WindowsPowerShell\profile.ps1"
 
 # PowerShell Prompt Set Begin
-# Load posh-git module from current directory
-Import-Module posh-git
 
 # Get full name of user
 $username = [Environment]::UserName
@@ -172,7 +174,7 @@ function MyGet-GitStatus($gitDir = (Get-GitDirectory)) {
             HasWorking      = [bool]$working
             Working         = $working
             HasUntracked    = [bool]$filesAdded
-            StashCount      = $stashCount
+            #StashCount      = $stashCount
         }
 		
         return $result
@@ -203,7 +205,7 @@ function global:prompt {
     write-host "[" -nonewline
     write-host (Get-Date -format "HH:mm") -nonewline -ForegroundColor Cyan
     write-host "]" -nonewline
-    [console]::setcursorposition($saveX,$saveY)        # Move cursor back
+    [console]::setcursorposition($saveX, $saveY)        # Move cursor back
 
     $global:LASTEXITCODE = $realLASTEXITCODE
     return " $([char]0x3BB) "
