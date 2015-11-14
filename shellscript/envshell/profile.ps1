@@ -2,19 +2,16 @@
 # %UserProfile%\My Documents\WindowsPowerShell\profile.ps1 
 # This profile applies only to the current user, but affects all shells. 
 
-
-Import-Module PSReadline
-
 # Load posh-git module from current directory
 Import-Module posh-git
 
+# Load PSReadline module from current directory
+Import-Module PSReadline
 Set-PSReadLineOption -HistorySearchCursorMovesToEnd 
-
-# Set-PSReadlineKeyHandler -Key Tab -Function Complete
 Set-PSReadlineKeyHandler -Key UpArrow -Function HistorySearchBackward
 Set-PSReadlineKeyHandler -Key DownArrow -Function HistorySearchForward
 
-
+# Load PSCX(PowerShell Community Extensions) module from current directory
 #Import-VisualStudioVars -VisualStudioVersion 2013 -Architecture x86
 Import-VisualStudioVars -VisualStudioVersion 2010 -Architecture x86
 
@@ -24,7 +21,6 @@ Set-Alias vim "C:\Program Files\Git\usr\bin\vim.exe"
 
 $desktop = "$HOME/Desktop"
 $download = "$HOME/Downloads"
-
 $myprofile = "$HOME\Documents\WindowsPowerShell\profile.ps1"
 
 # PowerShell Prompt Set Begin
@@ -80,7 +76,6 @@ function mypath__ {
  # Copy from posh-git/GitUtils.ps1 function Get-GitStatus
  # #$stashCount = $null | git stash list 2>$null | measure-object | select -expand Count
  #>
- 
 function MyGet-GitStatus($gitDir = (Get-GitDirectory)) {
     $settings = $Global:GitPromptSettings
     $enabled = (-not $settings) -or $settings.EnablePromptStatus
@@ -164,16 +159,16 @@ function MyGet-GitStatus($gitDir = (Get-GitDirectory)) {
             Add-Member -PassThru NoteProperty Unmerged $filesUnmerged
 		
         $result = New-Object PSObject -Property @{
-            GitDir          = $gitDir			
+            #GitDir          = $gitDir			
             Branch          = $branch
-            AheadBy         = $aheadBy
-            BehindBy        = $behindBy
-            Upstream        = $upstream
+            #AheadBy         = $aheadBy
+            #BehindBy        = $behindBy
+            #Upstream        = $upstream
             HasIndex        = [bool]$index
             Index           = $index
             HasWorking      = [bool]$working
             Working         = $working
-            HasUntracked    = [bool]$filesAdded
+            #HasUntracked    = [bool]$filesAdded
             #StashCount      = $stashCount
         }
 		
@@ -183,24 +178,28 @@ function MyGet-GitStatus($gitDir = (Get-GitDirectory)) {
 
 # Here we go
 function global:prompt {
-    $realLASTEXITCODE = $LASTEXITCODE
-    if($IsAdmin){
-        write-host $username -nonewline -ForegroundColor Red
-    } else {
-        write-host $username -nonewline -ForegroundColor Yellow
-    }
-    write-host " $([char]0x3C9) " -nonewline -ForegroundColor Gray
-    #Write-Host($pwd.ProviderPath) -nonewline -ForegroundColor Green
-	Write-Host(mypath__) -nonewline -ForegroundColor Green
-    
-    # writegitprompt (Get-GitStatus)
-	writegitprompt (MyGet-GitStatus)	
+	$realLASTEXITCODE = $LASTEXITCODE
+		
+	$OmegaColor = @{$true=[ConsoleColor]::Gray; $false=[ConsoleColor]::Red}[$realLASTEXITCODE -eq 0]	
+	$UserColor = @{$true=[ConsoleColor]::Red; $false=[ConsoleColor]::Yellow}[$IsAdmin]
+	$PathColor = [System.ConsoleColor]::Green
+	
+	## write Johnny
+	write-host $username -nonewline -ForegroundColor $UserColor	
+	## write  λ
+    write-host " $([char]0x3C9) " -nonewline -ForegroundColor $OmegaColor	
+    ## write Path
+	Write-Host(mypath__) -nonewline -ForegroundColor $PathColor    
+    # write Git Prompt
+	writegitprompt (MyGet-GitStatus)
+	## write  λ
+    write-host " $([char]0x3BB)" -nonewline -ForegroundColor $OmegaColor
     
     # Rightmost time display
     # Save cursor position first
     $saveY = [console]::CursorTop
     $saveX = [console]::CursorLeft
-    $columns = (Get-Host).UI.RawUI.windowsize.width    # Column quantity of console window
+    $columns = (Get-Host).UI.RawUI.windowsize.width    # Column quantity of console window	
     [console]::SetCursorPosition($columns - 10, $saveY)
     write-host "[" -nonewline
     write-host (Get-Date -format "HH:mm") -nonewline -ForegroundColor Cyan
@@ -208,11 +207,11 @@ function global:prompt {
     [console]::setcursorposition($saveX, $saveY)        # Move cursor back
 
     $global:LASTEXITCODE = $realLASTEXITCODE
-    return " $([char]0x3BB) "
+	#$global:LastPath = $pwd
+    return " "
 }
 
 # PowerShell Prompt Set End
 
 Pop-Location
 Start-SshAgent -Quiet
-
