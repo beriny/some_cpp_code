@@ -11,50 +11,47 @@ Set-PSReadLineOption -HistorySearchCursorMovesToEnd
 Set-PSReadlineKeyHandler -Key UpArrow -Function HistorySearchBackward
 Set-PSReadlineKeyHandler -Key DownArrow -Function HistorySearchForward
 
-# Load PSCX(PowerShell Community Extensions) module from current directory
+# Load PSCX(PowerShell Community Extensions https://pscx.codeplex.com/) module
 #Import-VisualStudioVars -VisualStudioVersion 2013 -Architecture x86
 Import-VisualStudioVars -VisualStudioVersion 2010 -Architecture x86
 
 
-Set-Alias vi  "C:\Program Files\Git\usr\bin\vim.exe"
-Set-Alias vim "C:\Program Files\Git\usr\bin\vim.exe"
+Set-Alias vi  "C:/Program Files/Git/usr/bin/vim.exe"
+Set-Alias vim "C:/Program Files/Git/usr/bin/vim.exe"
 
 $desktop = "$HOME/Desktop"
 $download = "$HOME/Downloads"
-$myprofile = "$HOME\Documents\WindowsPowerShell\profile.ps1"
+$myprofile = "$HOME/Documents/WindowsPowerShell/profile.ps1"
 
 # PowerShell Prompt Set Begin
 
 # Get full name of user
-$username = [Environment]::UserName
-$hostname = $env:COMPUTERNAME
+$UserName = [System.Environment]::UserName
+$HostName = [System.Environment]::MachineName
 
 # Am I an admin?
-$wid = [System.Security.Principal.WindowsIdentity]::GetCurrent()
-$prp = new-object System.Security.Principal.WindowsPrincipal($wid)
-$adm = [System.Security.Principal.WindowsBuiltInRole]::Administrator
-$IsAdmin = $prp.IsInRole($adm)
+$IsAdmin = [System.Security.Principal.WindowsPrincipal]::new([System.Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([System.Security.Principal.WindowsBuiltInRole]::Administrator)
 
 # Function to write git repository status on prompt
 function writegitprompt($status){
     if ($status) {
-         write-host ' (' -nonewline 
-         write-host ($status.Branch) -nonewline -foregroundcolor Cyan
-         write-host ' ' -nonewline 
+         Write-Host ' (' -NoNewline 
+         Write-Host ($status.Branch) -NoNewline -ForegroundColor Cyan
+         Write-Host ' ' -NoNewline 
          if($status.HasWorking) {
-             write-host "$([char]0x25CF)" -nonewline -ForegroundColor @{$true='Green';$false='DarkGray'}[$status.Working.Added -and $status.Working.Added.Count -ge 0]
-             write-host "$([char]0x25CF)" -nonewline -ForegroundColor @{$true=(@{$true='Red';$false='Yellow'}[$status.Working.Unmerged -and $status.Working.Unmerged.Count -ge 0]);$false=(@{$true='Red';$false='DarkGray'}[$status.Working.Unmerged -and $status.Working.Unmerged.Count -ge 0])}[$status.Working.Modified -and $status.Working.Modified.Count -ge 0]
-             write-host "$([char]0x25CF)" -nonewline -ForegroundColor @{$true='Red';$false='DarkGray'}[$status.Working.Deleted -and $status.Working.Deleted.Count -ge 0]
+             Write-Host "$([char]0x25CF)" -NoNewline -ForegroundColor @{$true='Green';$false='DarkGray'}[$status.Working.Added -and $status.Working.Added.Count -ge 0]
+             Write-Host "$([char]0x25CF)" -NoNewline -ForegroundColor @{$true=(@{$true='Red';$false='Yellow'}[$status.Working.Unmerged -and $status.Working.Unmerged.Count -ge 0]);$false=(@{$true='Red';$false='DarkGray'}[$status.Working.Unmerged -and $status.Working.Unmerged.Count -ge 0])}[$status.Working.Modified -and $status.Working.Modified.Count -ge 0]
+             Write-Host "$([char]0x25CF)" -NoNewline -ForegroundColor @{$true='Red';$false='DarkGray'}[$status.Working.Deleted -and $status.Working.Deleted.Count -ge 0]
          } else {
-             write-host "$([char]0x25CF)$([char]0x25CF)$([char]0x25CF)" -nonewline -ForegroundColor DarkGray
+             Write-Host "$([char]0x25CF)$([char]0x25CF)$([char]0x25CF)" -NoNewline -ForegroundColor DarkGray
          }
          if($status.HasIndex) {
-             write-host "| " -nonewline
-             write-host "$([char]0x25CF)" -nonewline -ForegroundColor @{$true='Green';$false='DarkGray'}[$status.Index.Added -and $status.Index.Added.Count -ge 0]
-             write-host "$([char]0x25CF)" -nonewline -ForegroundColor @{$true=(@{$true='Red';$false='Yellow'}[$status.Index.Unmerged -and $status.Index.Unmerged.Count -ge 0]);$false=(@{$true='Red';$false='DarkGray'}[$status.Working.Unmerged -and $status.Working.Unmerged.Count -ge 0])}[$status.Index.Modified -and $status.Index.Modified.Count -ge 0]
-             write-host "$([char]0x25CF)" -nonewline -ForegroundColor @{$true='Red';$false='DarkGray'}[$status.Index.Deleted -and $status.Index.Deleted.Count -ge 0]
+             Write-Host "| " -NoNewline
+             Write-Host "$([char]0x25CF)" -NoNewline -ForegroundColor @{$true='Green';$false='DarkGray'}[$status.Index.Added -and $status.Index.Added.Count -ge 0]
+             Write-Host "$([char]0x25CF)" -NoNewline -ForegroundColor @{$true=(@{$true='Red';$false='Yellow'}[$status.Index.Unmerged -and $status.Index.Unmerged.Count -ge 0]);$false=(@{$true='Red';$false='DarkGray'}[$status.Working.Unmerged -and $status.Working.Unmerged.Count -ge 0])}[$status.Index.Modified -and $status.Index.Modified.Count -ge 0]
+             Write-Host "$([char]0x25CF)" -NoNewline -ForegroundColor @{$true='Red';$false='DarkGray'}[$status.Index.Deleted -and $status.Index.Deleted.Count -ge 0]
          }
-         write-host ')' -nonewline		 
+         Write-Host ')' -NoNewline		 
     }
 }
 
@@ -74,7 +71,7 @@ function mypath__ {
 
 <#
  # Copy from posh-git/GitUtils.ps1 function Get-GitStatus
- # #$stashCount = $null | git stash list 2>$null | measure-object | select -expand Count
+ # $stashCount = $null | git stash list 2>$null | measure-object | select -expand Count
  #>
 function MyGet-GitStatus($gitDir = (Get-GitDirectory)) {
     $settings = $Global:GitPromptSettings
@@ -176,35 +173,183 @@ function MyGet-GitStatus($gitDir = (Get-GitDirectory)) {
     }
 }
 
+
+function MyWriteGitPrompt($gitDir = (Get-GitDirectory)) {
+    $settings = $Global:GitPromptSettings
+    $enabled = (-not $settings) -or $settings.EnablePromptStatus
+	
+    if ($enabled -and $gitDir)
+    {		
+        $branch = $null
+        
+        [bool]$indexAdded = $false
+        [bool]$indexModified = $false
+        [bool]$indexDeleted = $false
+        [bool]$indexUnmerged = $false
+        [bool]$HasIndex = $false
+
+        [bool]$filesAdded = $false
+        [bool]$filesModified = $false
+        [bool]$filesDeleted = $false
+        [bool]$filesUnmerged = $false
+        [bool]$HasWorking = $false
+	
+		$status = git -c color.status=false status --short --branch 2>$null
+		
+        $status | foreach {
+            
+            if($_) {
+                switch -regex ($_) {
+                    '^(?<index>[^#])(?<working>.) (?<path1>.*?)(?: -> (?<path2>.*))?$' {
+                        switch ($matches['index']) {
+                            'A' { $HasIndex = $true; $indexAdded = $true }
+                            'M' { $HasIndex = $true; $indexModified = $true }
+                            'R' { $HasIndex = $true; $indexModified = $true }
+                            'C' { $HasIndex = $true; $indexModified = $true }
+                            'D' { $HasIndex = $true; $indexDeleted = $true }
+                            'U' { $HasIndex = $true; $indexUnmerged = $true }                            
+                        }
+                        switch ($matches['working']) {
+                            '?' { $HasWorking = $true; $filesAdded = $true }
+                            'A' { $HasWorking = $true; $filesAdded = $true }
+                            'M' { $HasWorking = $true; $filesModified = $true }
+                            'D' { $HasWorking = $true; $filesDeleted = $true }
+                            'U' { $HasWorking = $true; $filesUnmerged = $true }                           
+                        }
+                    }
+
+                    '^## (?<branch>\S+?)(?:\.\.\.(?<upstream>\S+))?(?: \[(?:ahead (?<ahead>\d+))?(?:, )?(?:behind (?<behind>\d+))?\])?$' {
+                        $branch = $matches['branch']
+                    }
+
+                    '^## Initial commit on (?<branch>\S+)$' {
+                        $branch = $matches['branch']
+                    }				
+                }
+            }
+        }
+		
+		if (-Not $branch) {
+			return
+		}
+		
+        # Write Git Prompt
+        Write-Host ' (' -NoNewline 
+		$BranchColor = [System.ConsoleColor]::Cyan
+        Write-Host ($branch) -NoNewline -ForegroundColor $BranchColor
+        
+        if ($HasIndex) {
+			
+			if ($filesAdded) {
+				$GitAddedColor = [System.ConsoleColor]::Green
+			} else {
+				$GitAddedColor = [System.ConsoleColor]::DarkGray
+			}
+			if ($filesUnmerged) {
+				$GitUnmergedColor = [System.ConsoleColor]::Red
+			} elseif ($filesModified) {
+				$GitUnmergedColor = [System.ConsoleColor]::Yellow
+			} else {
+				$GitUnmergedColor = [System.ConsoleColor]::DarkGray
+			}
+			if ($filesDeleted) {
+				$GitDeletedColor = [System.ConsoleColor]::Red
+			} else {
+				$GitDeletedColor = [System.ConsoleColor]::DarkGray
+			}
+			Write-Host ' ' -NoNewline
+			Write-Host "$([char]0x25CF)" -NoNewline -ForegroundColor $GitAddedColor
+			Write-Host "$([char]0x25CF)" -NoNewline -ForegroundColor $GitUnmergedColor
+			Write-Host "$([char]0x25CF)" -NoNewline -ForegroundColor $GitDeletedColor
+		
+            if ($indexAdded) {
+                $GitAddedColor = [System.ConsoleColor]::Green
+            } else {
+                $GitAddedColor = [System.ConsoleColor]::DarkGray
+            }
+            if ($indexUnmerged) {
+                $GitUnmergedColor = [System.ConsoleColor]::Red
+            } elseif ($indexModified) {
+                $GitUnmergedColor = [System.ConsoleColor]::Yellow
+            } else {
+                $GitUnmergedColor = [System.ConsoleColor]::DarkGray
+            }
+            if ($indexDeleted) {
+                $GitDeletedColor = [System.ConsoleColor]::Red
+            } else {
+                $GitDeletedColor = [System.ConsoleColor]::DarkGray
+            }
+			Write-Host "| " -NoNewline -ForegroundColor $BranchColor
+            Write-Host "$([char]0x25CF)" -NoNewline -ForegroundColor $GitAddedColor
+            Write-Host "$([char]0x25CF)" -NoNewline -ForegroundColor $GitUnmergedColor
+            Write-Host "$([char]0x25CF)" -NoNewline -ForegroundColor $GitDeletedColor
+        } elseif ($HasWorking) {
+			if ($filesAdded) {
+				$GitAddedColor = [System.ConsoleColor]::Green
+			} else {
+				$GitAddedColor = [System.ConsoleColor]::DarkGray
+			}
+			if ($filesUnmerged) {
+				$GitUnmergedColor = [System.ConsoleColor]::Red
+			} elseif ($filesModified) {
+				$GitUnmergedColor = [System.ConsoleColor]::Yellow
+			} else {
+				$GitUnmergedColor = [System.ConsoleColor]::DarkGray
+			}
+			if ($filesDeleted) {
+				$GitDeletedColor = [System.ConsoleColor]::Red
+			} else {
+				$GitDeletedColor = [System.ConsoleColor]::DarkGray
+			}
+			Write-Host ' ' -NoNewline
+			Write-Host "$([char]0x25CF)" -NoNewline -ForegroundColor $GitAddedColor
+			Write-Host "$([char]0x25CF)" -NoNewline -ForegroundColor $GitUnmergedColor
+			Write-Host "$([char]0x25CF)" -NoNewline -ForegroundColor $GitDeletedColor
+		}	
+
+        Write-Host ')' -NoNewline
+    }
+}
+
+
 # Here we go
 function global:prompt {
 	$realLASTEXITCODE = $LASTEXITCODE
 		
-	$OmegaColor = @{$true=[ConsoleColor]::Gray; $false=[ConsoleColor]::Red}[$realLASTEXITCODE -eq 0]	
-	$UserColor = @{$true=[ConsoleColor]::Red; $false=[ConsoleColor]::Yellow}[$IsAdmin]
+	if ($realLASTEXITCODE -eq 0) {
+		$OmegaColor = [System.ConsoleColor]::Gray
+	} else {
+		$OmegaColor = [System.ConsoleColor]::Red
+	}
+	if 	($IsAdmin) {
+		$UserColor = [System.ConsoleColor]::Red
+	} else {
+		$UserColor = [System.ConsoleColor]::Yellow
+	}
 	$PathColor = [System.ConsoleColor]::Green
 	
 	## write Johnny
-	write-host $username -nonewline -ForegroundColor $UserColor	
+	Write-Host $UserName -NoNewline -ForegroundColor $UserColor	
 	## write  λ
-    write-host " $([char]0x3C9) " -nonewline -ForegroundColor $OmegaColor	
+    Write-Host " $([char]0x3C9) " -NoNewline -ForegroundColor $OmegaColor	
     ## write Path
-	Write-Host(mypath__) -nonewline -ForegroundColor $PathColor    
+	Write-Host(mypath__) -NoNewline -ForegroundColor $PathColor    
     # write Git Prompt
-	writegitprompt (MyGet-GitStatus)
+	# writegitprompt (MyGet-GitStatus)
+	MyWriteGitPrompt
 	## write  λ
-    write-host " $([char]0x3BB)" -nonewline -ForegroundColor $OmegaColor
+    Write-Host " $([char]0x3BB)" -NoNewline -ForegroundColor $OmegaColor
     
     # Rightmost time display
     # Save cursor position first
-    $saveY = [console]::CursorTop
-    $saveX = [console]::CursorLeft
+    $saveY = [System.Console]::CursorTop
+    $saveX = [System.Console]::CursorLeft
     $columns = (Get-Host).UI.RawUI.windowsize.width    # Column quantity of console window	
-    [console]::SetCursorPosition($columns - 10, $saveY)
-    write-host "[" -nonewline
-    write-host (Get-Date -format "HH:mm") -nonewline -ForegroundColor Cyan
-    write-host "]" -nonewline
-    [console]::setcursorposition($saveX, $saveY)        # Move cursor back
+    [System.Console]::SetCursorPosition($columns - 10, $saveY)
+    Write-Host "[" -NoNewline
+    Write-Host (Get-Date -format "HH:mm") -NoNewline -ForegroundColor Cyan
+    Write-Host "]" -NoNewline
+    [System.Console]::SetCursorPosition($saveX, $saveY)        # Move cursor back
 
     $global:LASTEXITCODE = $realLASTEXITCODE
 	#$global:LastPath = $pwd
