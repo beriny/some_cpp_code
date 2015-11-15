@@ -1,0 +1,27 @@
+#!/bin/bash
+#    File Name: vim_github_page.sh
+#       Author: Johnny
+#        Email: ligelaige@gmail.com
+# Created Time: Sun 15 Nov 2015 02:31:13 PM CST
+
+file_name="$(date '+%Y-%m-%d-')${1}.md"
+
+echo $file_name
+
+# check file exist
+if [ ! -f $file_name ]; then
+	touch $file_name
+	echo "---"							>> $file_name
+	echo "layout: post"					>> $file_name
+	echo "title: $1 "					>> $file_name
+	echo "date: $(date '+%Y-%m-%d %H:%M:%S')"	>> $file_name
+	echo "categories: 未分类"			>> $file_name
+	echo "---"							>> $file_name
+	echo ""								>> $file_name
+
+else
+	echo "$file_name is exist!"
+fi
+
+vim +5 $file_name
+
