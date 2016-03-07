@@ -30,7 +30,15 @@ $UserName = [System.Environment]::UserName
 $HostName = [System.Environment]::MachineName
 
 # Am I an admin?
-$IsAdmin = [System.Security.Principal.WindowsPrincipal]::new([System.Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([System.Security.Principal.WindowsBuiltInRole]::Administrator)
+if ($Host.Version.Major -eq 5) # WMF 5.0
+{
+	$IsAdmin = [System.Security.Principal.WindowsPrincipal]::new([System.Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([System.Security.Principal.WindowsBuiltInRole]::Administrator)
+} 
+else # WMF 4.0
+{
+	$IsAdmin = [System.Security.Principal.WindowsPrincipal]::Current.IsInRole([System.Security.Principal.WindowsBuiltInRole]::Administrator)
+}
+
 
 # Function to write git repository status on prompt
 function writegitprompt($status){
